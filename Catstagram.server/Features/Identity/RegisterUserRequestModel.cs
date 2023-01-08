@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Catstagram.server.Model.Identity
+﻿namespace Catstagram.server.Model.Identity
 {
-
+    using System.ComponentModel.DataAnnotations;
     public class RegisterUserRequestModel
     {
         [Required]

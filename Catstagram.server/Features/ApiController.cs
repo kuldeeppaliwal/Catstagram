@@ -1,4 +1,4 @@
-﻿namespace Catstagram.server.Controllers
+﻿namespace Catstagram.server.Features
 {
     using Microsoft.AspNetCore.Mvc;
 
