@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace Catstagram.server.Infrastructure
@@ -27,7 +28,8 @@ namespace Catstagram.server.Infrastructure
 
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole>(options => {
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireUppercase = false;
@@ -39,7 +41,7 @@ namespace Catstagram.server.Infrastructure
         }
 
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, AppSettings appSettings)
-        {            
+        {
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             services.AddAuthentication(x =>
@@ -67,6 +69,17 @@ namespace Catstagram.server.Infrastructure
             services
                 .AddTransient<IIdentityService, IdentityService>()
                 .AddTransient<ICatService, CatService>();
-        
+        public static IServiceCollection AddSwagger(this IServiceCollection service)
+        => service.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc(
+                "v1",
+                new OpenApiInfo
+                {
+                    Title = "My Catstagram API",
+                    Version = "V1"
+                });
+        });
+
     }
 }
