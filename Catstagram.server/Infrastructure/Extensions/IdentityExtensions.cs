@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 
-namespace Catstagram.server.Infrastructure
+namespace Catstagram.server.Infrastructure.Extensions
 {
     public static class IdentityExtensions
     {

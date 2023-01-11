@@ -1,6 +1,7 @@
 ﻿using Catstagram.server.Data;
 using Catstagram.server.Features.Cats;
 using Catstagram.server.Features.Identity;
+using Catstagram.server.Infrastructure.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-namespace Catstagram.server.Infrastructure
+namespace Catstagram.server.Infrastructure.Extensions
 {
 
     public static class ServiceCollectionExtensions
@@ -81,5 +82,8 @@ namespace Catstagram.server.Infrastructure
                 });
         });
 
+        public static void AddApiControllers(this IServiceCollection services)
+            => services.AddControllers(options => options
+            .Filters.Add<ModelOrNotFoundActionFilter>());
     }
 }

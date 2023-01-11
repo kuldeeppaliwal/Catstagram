@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Catstagram.server.Infrastructure
+namespace Catstagram.server.Infrastructure.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

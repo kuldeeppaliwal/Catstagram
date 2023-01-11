@@ -1,11 +1,14 @@
 ﻿namespace Catstagram.server.Features.Cats
 {
+    using Catstagram.server.Features.Cats.Models;
     using Catstagram.server.Infrastructure;
+    using Catstagram.server.Infrastructure.Extensions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    [Authorize]
     public class CatsController : ApiController
     {
         private readonly ICatService catService;
@@ -14,13 +17,18 @@
         {
             this.catService = catService;
         }
-        [Authorize]
         [HttpGet]
-        public async Task<IEnumerable<CatListingResponseModel>> Mine()
+        public async Task<IEnumerable<CatListingServiceModel>> Mine()
         {
            return await this.catService.ByUser(this.User.GetID());
         }
-        [Authorize]
+        
+        [HttpGet]
+        [Route("Details/{id}")]
+        public async Task<CatDetailsServiceModel> Details(int id)        
+            => await this.catService.Details(id);
+          
+       
         [HttpPost]
         public async Task<ActionResult> Create(CreateCatRequestModel model)
         {
