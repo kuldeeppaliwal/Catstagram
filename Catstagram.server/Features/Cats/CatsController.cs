@@ -39,5 +39,17 @@
                 userId);
             return Created(nameof(this.Create), id);
         }
+        [HttpPut]
+        public async Task<ActionResult> Update(UpdateCatRequestModel model)
+        {
+            var userId = this.User.GetID();
+
+            var updated = await this.catService.Update(model.Id, model.Description, userId);
+            if (!updated)
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
     }
 }

@@ -25,6 +25,18 @@ namespace Catstagram.server.Features.Cats
             await this.data.SaveChangesAsync();
             return cat.Id;
         }
+        public async Task<bool> Update(int id, string description, string userId)
+        {
+            var cat = await this.data.Cats.Where(c => c.Id == id && c.UserId == userId)
+                .FirstOrDefaultAsync();
+            if (cat==null)
+            {
+                return false;
+            }
+            cat.Description = description;
+            await this.data.SaveChangesAsync();
+            return true;
+        }
 
         public async Task<IEnumerable<CatListingServiceModel>> ByUser(string userId) => await this.data
             .Cats
